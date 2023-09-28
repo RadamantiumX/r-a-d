@@ -1,0 +1,33 @@
+### Recuperar todas las peliculas
+GET http://localhost:1234/movies
+
+### Recuperar una pelicula por ID
+GET http://localhost:1234/movies/2e6900e2-0b48-4fb6-ad48-09c7086e54fe
+
+### Recuperar todas las peliculas por un genero
+GET  http://localhost:1234/movies?genre=ACTION
+
+### Crear una pelicula
+POST  http://localhost:1234/movies
+Content-Type: application/json
+
+{
+    "title" : "Evolver",
+    "year" : 1995,
+    "director" : "Mark Rosman",
+    "duration" : 84,
+    "poster" : "https://m.media-amazon.com/images/M/MV5BMTU1NzMyMTI5NV5BMl5BanBnXkFtZTYwMjEyMzY5._V1_.jpg",
+    "genre": [
+        "Sci-fi",
+        "Action"
+    ]
+}
+
+### Actualizar una pelicula
+PATCH  http://localhost:1234/movies/2e6900e2-0b48-4fb6-ad48-09c7086e54fe
+Content-Type: application/json
+
+{
+    "title": "El Rey León",
+    "year" : 1997
+}

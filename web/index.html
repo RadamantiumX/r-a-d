@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probar Api Rest</title>
+    <style>
+        article{
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        img{
+            height: auto;
+            width: 320px;
+            max-width: 100%;
+
+        }
+    </style>
+    <script type="module">
+      // Pedimos el recurso a la API  
+      fetch('http://localhost:1234/movies')
+        .then(res => res.json())
+        .then(movies => {
+          // Mapeamos e insertamos en un TAG "article"  
+          const html = movies.map(movie =>{
+            return `
+                <article data-id="${movie.id}">
+                   <h2>${movie.title}</h2>
+                   <img src="${movie.poster}" alt="${movie.title}"/>
+                   <p>${movie.year}</p>
+                   <button>Eliminar</button>
+                </article>
+                `
+          }).join('')
+          // Insertamos en el "main"
+          document.querySelector('main').innerHTML = html
+          document.addEventListener('click', e => {
+            if (e.target.matches('button')){
+               const article = e.target.closest('article') // Seleccionamos el TAG "article"
+               const id = article.dataset.id // Recuperamso el ID del dataset q nos envia la peticion
+
+               fetch(`http://localhost:1234/movies/${id}`, {
+                method: 'DELETE'
+               })
+               .then(res => {
+                if (res.ok) {
+                    article.remove()
+                }
+               })
+            }
+          })
+        }
+        )
+    </script>
+</head>
+<body>
+    <main></main>
+    
+</body>
+</html>
