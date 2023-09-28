@@ -1,7 +1,7 @@
 const express = require('express')
 const crypto = require('node:crypto') // Crea cadenas codificadas
 const movies = require('./movies.json')
-const { validateMovie, validatePartialMovie } = require('./movies') // Importamos las validaciones
+const { validateMovie, validatePartialMovie } = require('./schemas/movies') // Importamos las validaciones
 const cors = require('cors')
 
 const app = express()
@@ -116,7 +116,7 @@ app.delete('/movies/:id', (req, res) => {
   return res.json({ message: 'Movie deleted' })
 })
 
-const PORT = process.env.PORT ?? 1234
+const PORT = process.env.PORT ?? 1234 // Utilizamos la variable de entorno del proceso
 
 app.listen(PORT, () => {
   console.log(`server listening on port http://localhost:${PORT}`)
